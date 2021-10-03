@@ -97,8 +97,10 @@ public class PlayerInputHandler : MonoBehaviour
             return 1;
         else if (Input.GetAxis(GameConstants.k_ButtonNameNextWeapon) > 0f)
             return -1;
-        else // Input.GetAxis(GameConstants.k_ButtonNameNextWeapon) < 0f
+        else if (Input.GetAxis(GameConstants.k_ButtonNameNextWeapon) < 0f)
             return 1;
+
+        return 0;
     }
 
     public int GetSelectWeaponInput()

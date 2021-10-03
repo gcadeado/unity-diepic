@@ -82,22 +82,15 @@ public class ProjectileStandard : MonoBehaviour
             OnHit(collider);
     }
 
-    void OnColliderEnter2D(Collision2D collision)
-    {
-        Debug.Log("Collision2D");
-        if ((hittableLayers.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer)
-            OnHit(collision.collider);
-    }
-
     void OnHit(Collider2D collider)
     {
         // damage
         Damageable damageable = collider.GetComponent<Damageable>();
-        if (damageable)
+        if (damageable && m_ProjectileBase.owner != collider.gameObject)
+        {
             damageable.InflictDamage(damage, m_ProjectileBase.owner);
-
-        // Self Destruct
-        Destroy(this.gameObject);
+            Destroy(this.gameObject);
+        }
     }
 
     void Update()

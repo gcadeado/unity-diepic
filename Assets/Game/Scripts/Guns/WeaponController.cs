@@ -103,6 +103,11 @@ public class WeaponController : MonoBehaviour
         m_LastTimeShot = Time.time;
     }
 
+    public void AddAmmo(int amount)
+    {
+        UpdateAmmo(amount);
+    }
+
     public void ShowWeapon(bool show)
     {
         weaponRoot.SetActive(show);

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7124792004599434375}
   - component: {fileID: 8774475618324555796}
   m_Layer: 0
-  m_Name: SimpleProjectile
+  m_Name: Simple Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7999067605840950891}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.362, y: 0.026, z: 0}
-  m_LocalScale: {x: 0.42, y: 0.42, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: 103242367
   m_SortingLayer: 1
   m_SortingOrder: -2
-  m_Sprite: {fileID: 21300000, guid: 08a47854d8e96fa4881be9014fd054df, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 1159142329774876990, guid: 099ecce80d0ce6e44b8369084b10626c, type: 3}
+  m_Color: {r: 0, g: 0.7921569, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd99ad11cbd33444b94ee33662de685c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.4
+  radius: 0.5
   maxLifeTime: 5
   hittableLayers:
     serializedVersion: 2
