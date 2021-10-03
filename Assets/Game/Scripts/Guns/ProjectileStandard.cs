@@ -89,7 +89,8 @@ public class ProjectileStandard : MonoBehaviour
         if (damageable && m_ProjectileBase.owner != collider.gameObject)
         {
             damageable.InflictDamage(damage, m_ProjectileBase.owner);
-            Destroy(this.gameObject);
+            StartCoroutine(m_SpriteRenderer.SetColorAnimation(m_SpriteRenderer.color, new Color(0f, 0f, 0f, 0f), 0.05f));
+            Destroy(this.gameObject, 0.05f); // TODO use object pool
         }
     }
 
