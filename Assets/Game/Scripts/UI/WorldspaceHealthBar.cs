@@ -11,6 +11,12 @@ public class WorldspaceHealthBar : MonoBehaviour
     [Tooltip("Whether the health bar is visible when at full health or not")]
     public bool hideFullHealthBar = true;
 
+    [Tooltip("Full health bar color")]
+    public Color colorFullHeath = Color.green;
+
+    [Tooltip("Depleted health bar color")]
+    public Color colorDepletedHeath = Color.red;
+
     private Health m_health;
 
     void Awake()
@@ -25,8 +31,9 @@ public class WorldspaceHealthBar : MonoBehaviour
 
     void Update()
     {
-        // update health bar value
-        healthBarImage.fillAmount = m_health.currentHealth / m_health.maxHealth;
+        float healthRatio = m_health.currentHealth / m_health.maxHealth;
+        healthBarImage.color = Color.Lerp(colorDepletedHeath, colorFullHeath, healthRatio);
+        healthBarImage.fillAmount = healthRatio;
 
         // hide health bar if needed
         if (hideFullHealthBar)

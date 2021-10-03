@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58640859b53c0644b49f82c609a60fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 60
+  maxHealth: 40
 --- !u!114 &8566506084481022253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,3 +449,5 @@ MonoBehaviour:
   healthBarImage: {fileID: 1241625238}
   healthBarPivot: {fileID: 368210425}
   hideFullHealthBar: 1
+  colorFullHeath: {r: 0, g: 1, b: 0, a: 1}
+  colorDepletedHeath: {r: 1, g: 0, b: 0, a: 1}

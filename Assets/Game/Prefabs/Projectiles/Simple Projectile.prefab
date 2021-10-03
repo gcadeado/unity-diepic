@@ -116,7 +116,7 @@ MonoBehaviour:
     m_Bits: 1
   speed: 4
   inheritWeaponVelocity: 0
-  damage: 40
+  damage: 15
   radiusColor: {r: 0, g: 0.2, b: 0.2, a: 0.2}
 --- !u!50 &8774475618324555796
 Rigidbody2D:
