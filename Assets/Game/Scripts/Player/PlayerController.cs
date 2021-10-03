@@ -4,11 +4,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
-    [Header("General")]
+    [SerializeField]
+    private IntVariable scoreObject = null; // TODO re-check score architecture
+
     [Header("Movement")]
     [Tooltip("Max movement speed")]
     public float maxSpeed = 10f;
-
     [
         Tooltip(
             "Sharpness for the movement, a low value will make the player accelerate and decelerate slowly, a high value will do the opposite")
@@ -48,12 +49,18 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("OnTriggerEnter2D");
+        // Handle collision damages
     }
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        Debug.Log("OnTriggerStay2D");
+        // Handle repel forces
+    }
+
+    public void AddScore(int value)
+    {
+        if (value > 0)
+            scoreObject.Value += value;
     }
 
     void HandleCharacterMovement()

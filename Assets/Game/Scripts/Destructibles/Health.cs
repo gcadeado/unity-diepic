@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
 
     public UnityAction<float, GameObject> onDamaged;
     public UnityAction<float> onHealed;
-    public UnityAction onDie;
+    public UnityAction<GameObject> onDie;
 
     public float currentHealth { get; set; }
 
@@ -51,20 +51,20 @@ public class Health : MonoBehaviour
         if (trueDamageAmount > 0f && onDamaged != null)
             onDamaged.Invoke(trueDamageAmount, damageSource);
 
-        HandleDeath();
+        HandleDeath(damageSource);
     }
 
-    public void Kill()
+    public void Kill(GameObject killSource)
     {
         currentHealth = 0f;
 
         if (onDamaged != null)
             onDamaged.Invoke(maxHealth, null);
 
-        HandleDeath();
+        HandleDeath(killSource);
     }
 
-    private void HandleDeath()
+    private void HandleDeath(GameObject source)
     {
         if (m_IsDead || currentHealth > 0f)
             return;
@@ -72,6 +72,6 @@ public class Health : MonoBehaviour
         m_IsDead = true;
 
         if (onDie != null)
-            onDie.Invoke();
+            onDie.Invoke(source);
     }
 }
