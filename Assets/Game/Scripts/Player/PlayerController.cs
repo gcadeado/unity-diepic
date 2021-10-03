@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-[RequireComponent(typeof (PlayerInputHandler))]
+[RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
@@ -45,6 +44,16 @@ public class PlayerController : MonoBehaviour
     void OnDie()
     {
         isDead = true;
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        Debug.Log("OnTriggerEnter2D");
+    }
+
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        Debug.Log("OnTriggerStay2D");
     }
 
     void HandleCharacterMovement()
