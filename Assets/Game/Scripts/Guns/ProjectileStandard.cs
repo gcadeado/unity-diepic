@@ -6,7 +6,7 @@ public class ProjectileStandard : MonoBehaviour
 {
     [Header("General")]
     [Tooltip("Radius of this projectile's (used for sprite and collisions)")]
-    public float radius = 0.1f;
+    public float radius = 1f;
 
     [Tooltip("LifeTime of the projectile")]
     public float maxLifeTime = 5f;
@@ -16,7 +16,7 @@ public class ProjectileStandard : MonoBehaviour
 
     [Header("Movement")]
     [Tooltip("Speed of the projectile")]
-    public float speed = 20f;
+    public float speed = 3f;
 
     [Tooltip("Determines if the projectile inherits the velocity that the weapon's muzzle had when firing")]
     public bool inheritWeaponVelocity = false;
@@ -34,7 +34,6 @@ public class ProjectileStandard : MonoBehaviour
     float m_ShootTime;
 
     List<Collider> m_IgnoredColliders;
-    const QueryTriggerInteraction k_TriggerInteraction = QueryTriggerInteraction.Collide;
 
     CircleCollider2D m_Collider;
 

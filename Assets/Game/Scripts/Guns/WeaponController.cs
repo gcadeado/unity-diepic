@@ -7,12 +7,16 @@ public class WeaponController : MonoBehaviour
     [Tooltip("The name that will be displayed in the UI for this weapon")]
     public string weaponName;
 
+    [SerializeField]
     [Header("Internal References")]
     [
         Tooltip(
             "The root object for the weapon, this is what will be deactivated when the weapon isn't active")
     ]
-    public GameObject weaponRoot;
+    private GameObject weaponRoot;
+
+    [SerializeField]
+    private IntVariable projectileInventory = null; // TODO re-check score architecture
 
     [Tooltip("Tip of the weapon, where the projectiles are shot")]
     public Transform weaponMuzzle;
@@ -31,7 +35,7 @@ public class WeaponController : MonoBehaviour
     public float bulletSpreadAngle = 0f;
 
     [Tooltip("Maximum amount of ammo in the gun")]
-    public float maxAmmo = 8;
+    public int maxAmmo = 8;
 
     [Tooltip("Force that will push back the weapon after each shot")]
     [Range(0f, 2f)]
@@ -40,20 +44,6 @@ public class WeaponController : MonoBehaviour
     private bool m_wantsToShoot = false;
 
     public UnityAction onShoot;
-
-    float m_CurrentAmmo;
-
-    public float CurrentAmmo
-    {
-        get
-        {
-            return m_CurrentAmmo;
-        }
-        set
-        {
-            m_CurrentAmmo = value;
-        }
-    }
 
     float m_LastTimeShot = Mathf.NegativeInfinity;
 
@@ -69,7 +59,6 @@ public class WeaponController : MonoBehaviour
 
     void Awake()
     {
-        m_CurrentAmmo = maxAmmo;
         m_LastMuzzlePosition = weaponMuzzle.position;
     }
 
@@ -90,11 +79,8 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
-        // update weapon
-        m_CurrentAmmo += amount;
-
-        // limits ammo to min and max value
-        m_CurrentAmmo = Mathf.Clamp(m_CurrentAmmo, 0, maxAmmo);
+        projectileInventory.Value += amount;
+        projectileInventory.Value = Mathf.Clamp((int)projectileInventory.Value, 0, maxAmmo);
     }
 
     public void UseAmmo(int amount)
@@ -129,12 +115,12 @@ public class WeaponController : MonoBehaviour
     bool TryShoot()
     {
         if (
-            m_CurrentAmmo >= 1f &&
+            projectileInventory.Value >= 1 &&
             m_LastTimeShot + delayBetweenShots < Time.time
         )
         {
             HandleShoot();
-            m_CurrentAmmo -= 1f;
+            projectileInventory.Value -= 1;
 
             return true;
         }

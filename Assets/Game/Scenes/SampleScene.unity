@@ -292,6 +292,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.65
       objectReference: {fileID: 0}
+    - target: {fileID: 5488196100286103680, guid: a1b4f8e2d9bf9e04fbbc66aa3186ffe9, type: 3}
+      propertyPath: m_Name
+      value: HealthBar
+      objectReference: {fileID: 0}
     - target: {fileID: 6789168227549357791, guid: a1b4f8e2d9bf9e04fbbc66aa3186ffe9, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -9662,6 +9666,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1688729137}
     m_Modifications:
+    - target: {fileID: 368210424, guid: 2430321e32e3f884c81dcf1955407eee, type: 3}
+      propertyPath: m_Name
+      value: HealthBar
+      objectReference: {fileID: 0}
     - target: {fileID: 1241625238, guid: 2430321e32e3f884c81dcf1955407eee, type: 3}
       propertyPath: m_Color.b
       value: 1

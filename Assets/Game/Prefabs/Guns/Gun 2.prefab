@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Missile Gun
   weaponRoot: {fileID: 4318789576593380795}
+  projectileInventory: {fileID: 11400000, guid: a3a2b67818c1c124c84d1addd4fcfe4d, type: 2}
   weaponMuzzle: {fileID: 7591985373408192981}
   projectilePrefab: {fileID: 5671621678811564475, guid: cb160a56fc3cc694ab1c330ed18916b3, type: 3}
   delayBetweenShots: 1
