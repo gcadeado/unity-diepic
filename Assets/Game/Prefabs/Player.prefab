@@ -467,6 +467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: f7476828ec00a934f855161d0d1934ad, type: 2}
   scoreObject: {fileID: 11400000, guid: 141447c9b35a4c24a80e81e5b9a68cf9, type: 2}
+  gunSlot: {fileID: 8745614251768523140}
 --- !u!114 &431049283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,10 +480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65fd9374e855c6840ac4e26f83dfa9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookSensitivity: 1
-  webglLookSensitivityMultiplier: 0.25
-  triggerAxisThreshold: 0.4
-  mouseVisibility: 0
 --- !u!114 &431049284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,8 +496,6 @@ MonoBehaviour:
   - {fileID: 2026463853, guid: 22698b1731cb0044196615a2b9c85a25, type: 3}
   - {fileID: 7591985374502289562, guid: f71c816ae17a04f46b0d435079920dce, type: 3}
   weaponParentSocket: {fileID: 8745614251768523140}
-  defaultWeaponPosition: {fileID: 8745614251768523140}
-  weaponSwitchDelay: 1
 --- !u!1 &8745614251768523141
 GameObject:
   m_ObjectHideFlags: 0

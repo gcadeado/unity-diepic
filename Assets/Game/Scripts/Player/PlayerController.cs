@@ -4,13 +4,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
+
     [SerializeField]
-    private PlayerData playerData;
+    PlayerData playerData;
     [SerializeField]
-    private IntVariable scoreObject = null; // TODO re-check score architecture
+    IntVariable scoreObject = null; // TODO re-check score architecture
     PlayerInputHandler m_InputHandler;
     Vector3 m_CharacterVelocity;
     Health m_Health;
+    [SerializeField]
+    Transform gunSlot;
+
     void Awake()
     {
         m_InputHandler = GetComponent<PlayerInputHandler>();
@@ -26,8 +30,12 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        m_Health.onDie += OnDie;
         playerData.PlayerState = PlayerStateEnum.ALIVE;
+    }
+
+    void OnEnable()
+    {
+        m_Health.onDie += OnDie;
     }
 
     void Update()
@@ -51,7 +59,7 @@ public class PlayerController : MonoBehaviour
     void HandleCharacterMovement(float angle, Vector3 moveInput)
     {
         // Plane XY character rotation
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        gunSlot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         // Character movement handling
         Vector3 targetVelocity = moveInput * playerData.maxSpeed;
@@ -63,6 +71,10 @@ public class PlayerController : MonoBehaviour
                 targetVelocity,
                 playerData.movementSharpness * Time.deltaTime);
         transform.Translate(m_CharacterVelocity * Time.deltaTime, Space.World);
+    }
 
+    void OnDisable()
+    {
+        m_Health.onDie -= OnDie;
     }
 }
