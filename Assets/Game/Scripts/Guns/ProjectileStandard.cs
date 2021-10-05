@@ -51,7 +51,7 @@ public class ProjectileStandard : MonoBehaviour
         if (m_Collider == null)
         {
             m_Collider = gameObject.AddComponent<CircleCollider2D>();
-            m_Collider.radius = radius;
+            m_Collider.radius = radius * 0.2f;
         }
 
         m_ProjectileBase.onShoot += OnShoot;

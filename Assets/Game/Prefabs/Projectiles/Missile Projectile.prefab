@@ -109,12 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e987ee2c474444e9197f1506e33fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.5
+  radius: 1
   maxLifeTime: 5
   hittableLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  speed: 4
+  speed: 10
   inheritWeaponVelocity: 0
   damage: 65
   radiusColor: {r: 0.2, g: 0, b: 0, a: 0.2}

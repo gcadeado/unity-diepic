@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 368210425}
   m_Layer: 0
-  m_Name: HealthBarPivot
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5686275, g: 0.78039217, b: 0.48235294, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 8566506084481022253}
   - component: {fileID: 8566506084481022254}
   - component: {fileID: 1554520540}
+  - component: {fileID: 1554520541}
   m_Layer: 0
   m_Name: Wood Crate
   m_TagString: Untagged
@@ -451,3 +452,18 @@ MonoBehaviour:
   hideFullHealthBar: 1
   colorFullHeath: {r: 0, g: 1, b: 0, a: 1}
   colorDepletedHeath: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &1554520541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8566506084481022242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088ec6a5bb802f94fadaa8e06db4e3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickups:
+  - {fileID: 5562562370265481381, guid: dddf9d18a4843e546a39de8e040bcd6e, type: 3}
+  - {fileID: 4411847931462319830, guid: bed9b4683e37bc441b30b2be0a16321b, type: 3}

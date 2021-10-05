@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38efc656aef212249a470f7df321c3f6, type: 3}
   m_Name: ProjectileStandardInventory
   m_EditorClassIdentifier: 
-  InitialValue: 6
-  RuntimeValue: 6
+  InitialValue: 12
+  RuntimeValue: 0
