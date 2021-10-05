@@ -3,11 +3,8 @@
 [CreateAssetMenu(menuName = "Scriptable Object/Int Variable", fileName = "new IntVariable")]
 public class IntVariable : GameEvent, ISerializationCallbackReceiver
 {
-
-    //Initial value when starting the scene
-    public int InitialValue;
-    //Runtime value that'll be edited during play mode
-    public int RuntimeValue = 0;
+    public int InitialValue = 0;
+    public int RuntimeValue;
 
     public int Value
     {

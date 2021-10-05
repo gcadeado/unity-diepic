@@ -89,6 +89,7 @@ public class ProjectileStandard : MonoBehaviour
         {
             damageable.InflictDamage(damage, m_ProjectileBase.owner);
             StartCoroutine(m_SpriteRenderer.SetColorAnimation(m_SpriteRenderer.color, new Color(0f, 0f, 0f, 0f), 0.05f));
+            m_Collider.enabled = false;
             Destroy(this.gameObject, 0.05f); // TODO use object pool
         }
     }

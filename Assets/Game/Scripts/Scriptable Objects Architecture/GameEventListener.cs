@@ -5,11 +5,11 @@ public class GameEventListener : MonoBehaviour
     public GameEvent Event;
     public UnityEvent Response;
 
-    private void OnEnable()
+    void OnEnable()
     {
         Event.RegisterListener(this);
     }
-    private void OnDisable()
+    void OnDisable()
     {
         Event.UnregisterListener(this);
     }

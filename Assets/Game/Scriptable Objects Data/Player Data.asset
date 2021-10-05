@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38efc656aef212249a470f7df321c3f6, type: 3}
-  m_Name: ProjectileStandardInventory
+  m_Script: {fileID: 11500000, guid: 3e8f2d66f0e15694b98ece8f4129654a, type: 3}
+  m_Name: Player Data
   m_EditorClassIdentifier: 
-  InitialValue: 12
-  RuntimeValue: 12
+  InitialPlayerState: 0
+  RuntimePlayerState: 0
+  maxSpeed: 4
+  movementSharpness: 5
+  playerName: Player
+  lastKilledBy: Player(Clone)

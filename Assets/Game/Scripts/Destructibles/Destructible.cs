@@ -12,16 +12,8 @@ public class Destructible : MonoBehaviour
         m_Health = GetComponent<Health>();
         DebugUtility.HandleErrorIfNullGetComponent<Health, Destructible>(m_Health, this, gameObject);
 
-        // Subscribe to damage & death actions
         m_Health.onDie += OnDie;
-        m_Health.onDamaged += OnDamaged;
     }
-
-    void OnDamaged(float damage, GameObject damageSource)
-    {
-        // TODO
-    }
-
     void OnDie(GameObject killerSource)
     {
         // this will call the OnDestroy function
