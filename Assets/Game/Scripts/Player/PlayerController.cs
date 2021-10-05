@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        HandleCharacterMovement();
+        HandleCharacterMovement(m_InputHandler.GetMouseLookAngle() - 90f, m_InputHandler.GetMoveInput());
     }
 
     void OnDie(GameObject source)
@@ -58,32 +58,26 @@ public class PlayerController : MonoBehaviour
             scoreObject.Value += value;
     }
 
-    void HandleCharacterMovement()
+    void HandleCharacterMovement(float angle, Vector3 moveInput)
     {
         // Plane XY character rotation
         {
-            transform.rotation =
-                Quaternion
-                    .AngleAxis(m_InputHandler.GetMouseLookAngle() - 90f,
-                    Vector3.forward);
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
         // Character movement handling
         {
-            // Converts move input to a worldspace vector based on our character's transform orientation
-            Vector3 worldspaceMoveInput =
-                transform.TransformVector(m_InputHandler.GetMoveInput());
-            Vector3 targetVelocity =
-                m_InputHandler.GetMoveInput() * playerData.maxSpeed;
+            // converts move input to a worldspace vector based on player's transform orientation
+            Vector3 worldspaceMoveInput = transform.TransformVector(moveInput);
+            Vector3 targetVelocity = moveInput * playerData.maxSpeed;
 
-            // smoothly interpolate between our current velocity and the target velocity based on acceleration speed
+            // interpolate between current velocity and the target velocity based on acceleration speed
             m_CharacterVelocity =
                 Vector3
                     .Lerp(m_CharacterVelocity,
                     targetVelocity,
                     playerData.movementSharpness * Time.deltaTime);
-            transform
-                .Translate(m_CharacterVelocity * Time.deltaTime, Space.World);
+            transform.Translate(m_CharacterVelocity * Time.deltaTime, Space.World);
         }
     }
 }

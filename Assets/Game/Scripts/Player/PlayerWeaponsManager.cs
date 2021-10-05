@@ -19,23 +19,11 @@ public class PlayerWeaponsManager : MonoBehaviour
     [Header("References")]
     [Tooltip("Parent transform where all weapon will be added in the hierarchy")]
     public Transform weaponParentSocket;
-    [Tooltip("Position for weapons when active")]
-    public Transform defaultWeaponPosition;
 
-    [Header("Misc")]
-    [Tooltip("Delay before switching weapon a second time, to avoid recieving multiple inputs from mouse wheel")]
-    public float weaponSwitchDelay = .5f;
     public int activeWeaponIndex { get; private set; }
-
     public UnityAction<WeaponController> onSwitchedToWeapon;
-
     WeaponController[] m_WeaponSlots = new WeaponController[6]; // 6 available weapon slots
     PlayerInputHandler m_InputHandler;
-    PlayerController m_PlayerController;
-    Vector3 m_WeaponMainLocalPosition;
-    Vector3 m_WeaponRecoilLocalPosition;
-    Vector3 m_AccumulatedRecoil;
-    float m_TimeStartedWeaponSwitch;
     WeaponSwitchState m_WeaponSwitchState;
     int m_WeaponSwitchNewWeaponIndex;
 
@@ -46,9 +34,6 @@ public class PlayerWeaponsManager : MonoBehaviour
 
         m_InputHandler = GetComponent<PlayerInputHandler>();
         DebugUtility.HandleErrorIfNullGetComponent<PlayerInputHandler, PlayerWeaponsManager>(m_InputHandler, this, gameObject);
-
-        m_PlayerController = GetComponent<PlayerController>();
-        DebugUtility.HandleErrorIfNullGetComponent<PlayerController, PlayerWeaponsManager>(m_PlayerController, this, gameObject);
 
         onSwitchedToWeapon += OnWeaponSwitched;
 
@@ -63,48 +48,31 @@ public class PlayerWeaponsManager : MonoBehaviour
     private void Update()
     {
         // shoot handling
-
         WeaponController activeWeapon = GetActiveWeapon();
-
         if (activeWeapon && m_WeaponSwitchState == WeaponSwitchState.Up)
         {
-
-            // handle shooting
             bool hasFired = activeWeapon.HandleShootInputs(
                 m_InputHandler.GetFireInputDown(),
                 m_InputHandler.GetFireInputHeld(),
                 m_InputHandler.GetFireInputReleased());
         }
 
-
         // weapon switch handling
         if (m_WeaponSwitchState == WeaponSwitchState.Up || m_WeaponSwitchState == WeaponSwitchState.Down)
         {
-            int switchWeaponInput = m_InputHandler.GetSwitchWeaponInput();
+            int switchWeaponInput = m_InputHandler.GetSelectWeaponInput();
             if (switchWeaponInput != 0)
             {
-                bool switchUp = switchWeaponInput > 0;
-                SwitchWeapon(switchUp);
+                if (GetWeaponAtSlotIndex(switchWeaponInput - 1) != null)
+                    SwitchToWeaponIndex(switchWeaponInput - 1);
             }
-            else
-            {
-                switchWeaponInput = m_InputHandler.GetSelectWeaponInput();
-                if (switchWeaponInput != 0)
-                {
-                    if (GetWeaponAtSlotIndex(switchWeaponInput - 1) != null)
-                        SwitchToWeaponIndex(switchWeaponInput - 1);
-                }
-            }
+
         }
     }
 
-    // Update various animated features in LateUpdate because it needs to override the animated arm position
     private void LateUpdate()
     {
         UpdateWeaponSwitching();
-
-        // Set final weapon socket position based on all the combined animation influences
-        weaponParentSocket.localPosition = m_WeaponMainLocalPosition + m_WeaponRecoilLocalPosition;
     }
 
     // Iterate on all weapon slots to find the next valid weapon to switch to
@@ -139,12 +107,10 @@ public class PlayerWeaponsManager : MonoBehaviour
         {
             // Store data related to weapon switching animation
             m_WeaponSwitchNewWeaponIndex = newWeaponIndex;
-            m_TimeStartedWeaponSwitch = Time.time;
 
             // Handle case of switching to a valid weapon for the first time (simply put it up without putting anything down first)
             if (GetActiveWeapon() == null)
             {
-                m_WeaponMainLocalPosition = defaultWeaponPosition.localPosition;
                 m_WeaponSwitchState = WeaponSwitchState.PutUpNew;
                 activeWeaponIndex = m_WeaponSwitchNewWeaponIndex;
 
@@ -199,7 +165,6 @@ public class PlayerWeaponsManager : MonoBehaviour
 
             if (newWeapon)
             {
-                m_TimeStartedWeaponSwitch = Time.time;
                 m_WeaponSwitchState = WeaponSwitchState.PutUpNew;
             }
             else
@@ -219,9 +184,7 @@ public class PlayerWeaponsManager : MonoBehaviour
     {
         // if we already hold this weapon type (a weapon coming from the same source prefab), don't add the weapon
         if (HasWeapon(weaponPrefab))
-        {
             return false;
-        }
 
         // search our weapon slots for the first free one, assign the weapon to it, and return true if we found one. Return false otherwise
         for (int i = 0; i < m_WeaponSlots.Length; i++)
@@ -247,9 +210,7 @@ public class PlayerWeaponsManager : MonoBehaviour
 
         // Handle auto-switching to weapon if no weapons currently
         if (GetActiveWeapon() == null)
-        {
             SwitchWeapon(true);
-        }
 
         return false;
     }
@@ -287,8 +248,7 @@ public class PlayerWeaponsManager : MonoBehaviour
     public WeaponController GetWeaponAtSlotIndex(int index)
     {
         // find the active weapon in our weapon slots based on our active weapon index
-        if (index >= 0 &&
-            index < m_WeaponSlots.Length)
+        if (index >= 0 && index < m_WeaponSlots.Length)
         {
             return m_WeaponSlots[index];
         }

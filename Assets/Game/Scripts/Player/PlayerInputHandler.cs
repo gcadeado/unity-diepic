@@ -2,20 +2,6 @@ using UnityEngine;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    [Tooltip("Sensitivity multiplier for the mouse")]
-    public float lookSensitivity = 1f;
-
-    [Tooltip("Additional sensitivity multiplier for WebGL")]
-    public float webglLookSensitivityMultiplier = 0.25f;
-
-    [Tooltip("Limit to consider an input when using a trigger on a controller")]
-    public float triggerAxisThreshold = 0.4f;
-
-    [Tooltip("Should hide mouse")]
-    public bool mouseVisibility = false;
-
-    PlayerController m_PlayerController;
-
     private bool m_canProcessInput = true;
     public bool CanProcessInput
     {
@@ -24,16 +10,6 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     bool m_FireInputWasHeld;
-
-    private void Start()
-    {
-        m_PlayerController = GetComponent<PlayerController>();
-        DebugUtility
-            .HandleErrorIfNullGetComponent
-            <PlayerController, PlayerInputHandler>(m_PlayerController,
-            this,
-            gameObject);
-    }
 
     private void LateUpdate()
     {
@@ -69,38 +45,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!CanProcessInput)
             return false;
-
-        bool isGamepad =
-            Input.GetAxis(GameConstants.k_ButtonNameGamepadFire) != 0f;
-        if (isGamepad)
-        {
-            return Input.GetAxis(GameConstants.k_ButtonNameGamepadFire) >=
-            triggerAxisThreshold;
-        }
-        else
-        {
-            return Input.GetButton(GameConstants.k_ButtonNameFire);
-        }
-    }
-
-    public int GetSwitchWeaponInput()
-    {
-        if (!CanProcessInput)
-            return 0;
-
-        bool isGamepad = Input.GetAxis(GameConstants.k_ButtonNameGamepadSwitchWeapon) != 0f;
-        string axisName = isGamepad ? GameConstants.k_ButtonNameGamepadSwitchWeapon : GameConstants.k_ButtonNameSwitchWeapon;
-
-        if (Input.GetAxis(axisName) > 0f)
-            return -1;
-        else if (Input.GetAxis(axisName) < 0f)
-            return 1;
-        else if (Input.GetAxis(GameConstants.k_ButtonNameNextWeapon) > 0f)
-            return -1;
-        else if (Input.GetAxis(GameConstants.k_ButtonNameNextWeapon) < 0f)
-            return 1;
-
-        return 0;
+        return Input.GetButton(GameConstants.k_ButtonNameFire);
     }
 
     public int GetSelectWeaponInput()

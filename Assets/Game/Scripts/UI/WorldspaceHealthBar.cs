@@ -6,7 +6,7 @@ public class WorldspaceHealthBar : MonoBehaviour
 {
     [Tooltip("Image component displaying health left")]
     public Image healthBarImage;
-    [Tooltip("The floating healthbar pivot transform")]
+    [Tooltip("Healthbar pivot point")]
     public Transform healthBarPivot;
     [Tooltip("Whether the health bar is visible when at full health or not")]
     public bool hideFullHealthBar = true;
