@@ -42,16 +42,6 @@ public class PlayerController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        // Handle collision damages
-    }
-
-    void OnTriggerStay2D(Collider2D collider)
-    {
-        // Handle repel forces
-    }
-
     public void AddScore(int value)
     {
         if (value > 0)
@@ -61,23 +51,18 @@ public class PlayerController : MonoBehaviour
     void HandleCharacterMovement(float angle, Vector3 moveInput)
     {
         // Plane XY character rotation
-        {
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         // Character movement handling
-        {
-            // converts move input to a worldspace vector based on player's transform orientation
-            Vector3 worldspaceMoveInput = transform.TransformVector(moveInput);
-            Vector3 targetVelocity = moveInput * playerData.maxSpeed;
+        Vector3 targetVelocity = moveInput * playerData.maxSpeed;
 
-            // interpolate between current velocity and the target velocity based on acceleration speed
-            m_CharacterVelocity =
-                Vector3
-                    .Lerp(m_CharacterVelocity,
-                    targetVelocity,
-                    playerData.movementSharpness * Time.deltaTime);
-            transform.Translate(m_CharacterVelocity * Time.deltaTime, Space.World);
-        }
+        // interpolate between current velocity and the target velocity based on acceleration speed
+        m_CharacterVelocity =
+            Vector3
+                .Lerp(m_CharacterVelocity,
+                targetVelocity,
+                playerData.movementSharpness * Time.deltaTime);
+        transform.Translate(m_CharacterVelocity * Time.deltaTime, Space.World);
+
     }
 }
