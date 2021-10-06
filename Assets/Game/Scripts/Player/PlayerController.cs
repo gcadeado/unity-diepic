@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     PlayerData playerData;
     [SerializeField]
-    IntVariable scoreObject = null; // TODO re-check score architecture
+    IntVariable scoreObject = null; // TODO rethink score architecture
     PlayerInputHandler m_InputHandler;
     Vector3 m_CharacterVelocity;
     Health m_Health;
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleCharacterMovement(float angle, Vector3 moveInput)
     {
-        // Plane XY character rotation
+        // Plane XY gun rotation
         gunSlot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         // Character movement handling

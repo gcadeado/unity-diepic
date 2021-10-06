@@ -3,51 +3,20 @@ using UnityEngine.Events;
 
 public class WeaponController : MonoBehaviour
 {
-    [Header("Information")]
-    [Tooltip("The name that will be displayed in the UI for this weapon")]
-    public string weaponName;
-
     [SerializeField]
     [Header("Internal References")]
-    [
-        Tooltip(
-            "The root object for the weapon, this is what will be deactivated when the weapon isn't active")
-    ]
-    private GameObject weaponRoot;
+    [Tooltip("The root object for the weapon")]
+    public GameObject weaponRoot;
 
-    [SerializeField]
-    private IntVariable projectileInventory = null; // TODO re-check score architecture
+    public WeaponData weaponData;
 
     [Tooltip("Tip of the weapon, where the projectiles are shot")]
     public Transform weaponMuzzle;
-
-    [Header("Shoot Parameters")]
-    [Tooltip("The projectile prefab")]
-    public ProjectileBase projectilePrefab;
-
-    [Tooltip("Minimum duration between two shots")]
-    public float delayBetweenShots = 0.5f;
-
-    [
-        Tooltip(
-            "Angle for the cone in which the bullets will be shot randomly (0 means no spread at all)")
-    ]
-    public float bulletSpreadAngle = 0f;
-
-    [Tooltip("Maximum amount of ammo in the gun")]
-    public int maxAmmo = 8;
-
-    [Tooltip("Force that will push back the weapon after each shot")]
-    [Range(0f, 2f)]
-    public float recoilForce = 1;
-
     private bool m_wantsToShoot = false;
 
     public UnityAction onShoot;
 
     float m_LastTimeShot = Mathf.NegativeInfinity;
-
-    Vector3 m_LastMuzzlePosition;
 
     public GameObject owner { get; set; }
 
@@ -57,21 +26,6 @@ public class WeaponController : MonoBehaviour
 
     public Vector3 muzzleWorldVelocity { get; private set; }
 
-    void Awake()
-    {
-        m_LastMuzzlePosition = weaponMuzzle.position;
-    }
-
-    void Update()
-    {
-        if (Time.deltaTime > 0)
-        {
-            muzzleWorldVelocity =
-                (weaponMuzzle.position - m_LastMuzzlePosition) / Time.deltaTime;
-            m_LastMuzzlePosition = weaponMuzzle.position;
-        }
-    }
-
     void UpdateAmmo(int amount)
     {
         if (amount == 0)
@@ -79,8 +33,11 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
-        projectileInventory.Value += amount;
-        projectileInventory.Value = Mathf.Clamp((int)projectileInventory.Value, 0, maxAmmo);
+        weaponData.projectileInventory.Value += amount;
+        weaponData.projectileInventory.Value = Mathf.Clamp(
+            (int)weaponData.projectileInventory.Value,
+            0,
+            weaponData.projectileInventoryMax.Value);
     }
 
     public void UseAmmo(int amount)
@@ -115,12 +72,12 @@ public class WeaponController : MonoBehaviour
     bool TryShoot()
     {
         if (
-            projectileInventory.Value >= 1 &&
-            m_LastTimeShot + delayBetweenShots < Time.time
+            weaponData.projectileInventory.Value >= 1 &&
+            m_LastTimeShot + weaponData.delayBetweenShots < Time.time
         )
         {
             HandleShoot();
-            projectileInventory.Value -= 1;
+            weaponData.projectileInventory.Value -= 1;
 
             return true;
         }
@@ -132,9 +89,10 @@ public class WeaponController : MonoBehaviour
     {
         Vector3 shotDirection = GetShotDirectionWithinSpread(weaponMuzzle);
         ProjectileBase newProjectile =
-            Instantiate(projectilePrefab,
-            weaponMuzzle.position,
-            Quaternion.LookRotation(shotDirection));
+            Instantiate(
+                weaponData.projectilePrefab,
+                weaponMuzzle.position,
+                Quaternion.LookRotation(shotDirection));
         newProjectile.Shoot(this);
 
         m_LastTimeShot = Time.time;
@@ -148,7 +106,7 @@ public class WeaponController : MonoBehaviour
 
     public Vector3 GetShotDirectionWithinSpread(Transform shootTransform)
     {
-        float spreadAngleRatio = bulletSpreadAngle / 180f;
+        float spreadAngleRatio = weaponData.bulletSpreadAngle / 180f;
         Vector2 randomAngle = UnityEngine.Random.insideUnitCircle;
         Vector3 spreadWorldDirection =
             Vector3

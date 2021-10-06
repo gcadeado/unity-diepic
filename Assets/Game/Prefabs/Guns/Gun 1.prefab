@@ -126,12 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d5325578b216c4a95bbfff8b978a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: Projectile Gun
   weaponRoot: {fileID: 5959188395633735500}
-  projectileInventory: {fileID: 11400000, guid: 8f2f5e85f25e3ef43b98b441b772159b, type: 2}
+  weaponData: {fileID: 11400000, guid: afac109dfaab59f41a987677502e807b, type: 2}
   weaponMuzzle: {fileID: 974523170}
-  projectilePrefab: {fileID: 4092996142591697367, guid: 318cb35c621ce00499ec8550ab979933, type: 3}
-  delayBetweenShots: 0.4
-  bulletSpreadAngle: 15
-  maxAmmo: 12
-  recoilForce: 1

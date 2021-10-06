@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38efc656aef212249a470f7df321c3f6, type: 3}
-  m_Name: ProjectileMissileInventory
+  m_Name: ProjectileMissileInventoryMax
   m_EditorClassIdentifier: 
   InitialValue: 8
   RuntimeValue: 8

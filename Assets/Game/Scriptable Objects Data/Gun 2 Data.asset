@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b4e2efbfd15b04baf77fcb069cab63, type: 3}
+  m_Name: Gun 2 Data
+  m_EditorClassIdentifier: 
+  projectileInventory: {fileID: 11400000, guid: ed7a0376d8622b7418332d0fef37d44f, type: 2}
+  projectileInventoryMax: {fileID: 11400000, guid: fe6b04b7967a793418118b0363ae20b4, type: 2}
+  weaponName: Gun 2
+  projectilePrefab: {fileID: 5671621678811564475, guid: cb160a56fc3cc694ab1c330ed18916b3, type: 3}
+  delayBetweenShots: 0.6
+  bulletSpreadAngle: 5

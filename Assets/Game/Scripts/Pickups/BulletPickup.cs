@@ -4,11 +4,12 @@ public class BulletPickup : MonoBehaviour
 {
     [Header("Parameters")]
     public IntVariable projectileInventory;
+    public IntVariable projectileInventoryMax;
 
     [Tooltip("Minimum amount of bullets")]
     public int bulletAmountMin = 6;
     [Tooltip("Maximum amount of bullets")]
-    public int bulletAmountMax = 12;
+    public int bulletAmountMax = 6;
 
     Pickup m_Pickup;
 
@@ -27,6 +28,7 @@ public class BulletPickup : MonoBehaviour
         if (playerWeaponsManager && playerWeaponsManager)
         {
             projectileInventory.Value += Random.Range(bulletAmountMin, bulletAmountMax + 1);
+            projectileInventory.Value = Mathf.Clamp(projectileInventory.Value, 0, projectileInventoryMax.Value);
             Destroy(gameObject);
         }
     }

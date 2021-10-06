@@ -450,7 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 1029416409613153907}
   healthBarPivot: {fileID: 3521984475396101183}
-  hideFullHealthBar: 0
+  hideFullHealthBar: 1
   colorFullHeath: {r: 0, g: 1, b: 0, a: 1}
   colorDepletedHeath: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &431049282
