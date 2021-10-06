@@ -40,7 +40,7 @@ public class WeaponController : MonoBehaviour
         get; private set;
     }
 
-    void Start()
+    void Awake()
     {
         projectilesLeft = projectileMax;
     }

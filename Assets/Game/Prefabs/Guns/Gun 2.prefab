@@ -99,6 +99,8 @@ MonoBehaviour:
   weaponRoot: {fileID: 4318789576593380795}
   weaponData: {fileID: 11400000, guid: c61ff443f7ba2034e8f93e6a261a1c5a, type: 2}
   weaponMuzzle: {fileID: 7591985373408192981}
+  projectilesLeft: 0
+  projectileMax: 6
 --- !u!1 &7591985373408192982
 GameObject:
   m_ObjectHideFlags: 0

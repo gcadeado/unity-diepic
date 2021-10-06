@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4057d1144e0821544abdbdebd2c030c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileInventory: {fileID: 11400000, guid: cb1e6a3cdc318e344ab947a34d067c40, type: 2}
-  projectileInventoryMax: {fileID: 11400000, guid: 5bc893e6dd300a841bf584c47fdfd544, type: 2}
   bulletAmountMin: 3
   bulletAmountMax: 6
+  weaponController: {fileID: 2026463853, guid: 22698b1731cb0044196615a2b9c85a25, type: 3}

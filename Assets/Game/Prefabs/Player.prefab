@@ -481,6 +481,8 @@ MonoBehaviour:
   - {fileID: 2026463853, guid: 22698b1731cb0044196615a2b9c85a25, type: 3}
   - {fileID: 7591985374502289562, guid: f71c816ae17a04f46b0d435079920dce, type: 3}
   weaponParentSocket: {fileID: 8745614251768523140}
+  isFiring: 0
+  switchWeaponInput: 0
 --- !u!114 &-5367122458692866165
 MonoBehaviour:
   m_ObjectHideFlags: 0

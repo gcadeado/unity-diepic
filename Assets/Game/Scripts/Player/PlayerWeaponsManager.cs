@@ -20,7 +20,10 @@ public class PlayerWeaponsManager : MonoBehaviour
     [Tooltip("Parent transform where all weapon will be added in the hierarchy")]
     public Transform weaponParentSocket;
 
-    public int activeWeaponIndex { get; private set; }
+    public int activeWeaponIndex
+    {
+        get; private set;
+    }
     public UnityAction<WeaponController> onSwitchedToWeapon;
     WeaponController[] m_WeaponSlots = new WeaponController[6]; // 6 available weapon slots
 
@@ -120,20 +123,6 @@ public class PlayerWeaponsManager : MonoBehaviour
         }
     }
 
-    public bool HasWeapon(WeaponController weaponPrefab)
-    {
-        // Checks if we already have a weapon coming from the specified prefab
-        foreach (var w in m_WeaponSlots)
-        {
-            if (w != null && w.sourcePrefab == weaponPrefab.gameObject)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     // Updates the animated transition of switching weapons
     void UpdateWeaponSwitching()
     {
@@ -169,6 +158,61 @@ public class PlayerWeaponsManager : MonoBehaviour
         {
             m_WeaponSwitchState = WeaponSwitchState.Up;
         }
+    }
+
+    // Adds bullets for weapon
+    public bool AddAmmo(WeaponController weaponPrefab, int ammount)
+    {
+        if (!HasWeapon(weaponPrefab))
+            return false;
+        foreach (var w in m_WeaponSlots)
+        {
+            if (w != null && w.sourcePrefab == weaponPrefab.gameObject)
+            {
+                w.AddAmmo(ammount);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public WeaponController GetWeapon(WeaponController weaponPrefab)
+    {
+        foreach (var w in m_WeaponSlots)
+        {
+            if (w != null && w.sourcePrefab == weaponPrefab.gameObject)
+            {
+                return w;
+            }
+        }
+        return null;
+    }
+
+    public bool HasWeapon(WeaponController weaponPrefab)
+    {
+        WeaponController weapon = GetWeapon(weaponPrefab);
+        return weapon;
+    }
+
+    public int GetAmmo(WeaponController weapon)
+    {
+        WeaponController weaponController = GetWeapon(weapon);
+        if (weapon)
+        {
+            return weaponController.projectilesLeft;
+        }
+        return 0;
+    }
+
+    public int GetMaxAmmo(WeaponController weapon)
+    {
+        WeaponController weaponController = GetWeapon(weapon);
+        if (weapon)
+        {
+            return weaponController.projectileMax;
+        }
+        return 0;
     }
 
     // Adds a weapon to our inventory
