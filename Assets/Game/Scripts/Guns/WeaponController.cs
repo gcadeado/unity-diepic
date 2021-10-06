@@ -12,19 +12,38 @@ public class WeaponController : MonoBehaviour
 
     [Tooltip("Tip of the weapon, where the projectiles are shot")]
     public Transform weaponMuzzle;
-    private bool m_wantsToShoot = false;
 
     public UnityAction onShoot;
 
+    public int projectilesLeft;
+    public int projectileMax = 12;
+
     float m_LastTimeShot = Mathf.NegativeInfinity;
 
-    public GameObject owner { get; set; }
+    public GameObject owner
+    {
+        get; set;
+    }
 
-    public GameObject sourcePrefab { get; set; }
+    public GameObject sourcePrefab
+    {
+        get; set;
+    }
 
-    public bool isWeaponActive { get; private set; }
+    public bool isWeaponActive
+    {
+        get; private set;
+    }
 
-    public Vector3 muzzleWorldVelocity { get; private set; }
+    public Vector3 muzzleWorldVelocity
+    {
+        get; private set;
+    }
+
+    void Start()
+    {
+        projectilesLeft = projectileMax;
+    }
 
     void UpdateAmmo(int amount)
     {
@@ -33,11 +52,10 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
-        weaponData.projectileInventory.Value += amount;
-        weaponData.projectileInventory.Value = Mathf.Clamp(
-            (int)weaponData.projectileInventory.Value,
+        projectilesLeft += amount;
+        projectilesLeft = Mathf.Clamp(projectilesLeft,
             0,
-            weaponData.projectileInventoryMax.Value);
+            projectileMax);
     }
 
     public void UseAmmo(int amount)
@@ -58,27 +76,23 @@ public class WeaponController : MonoBehaviour
         isWeaponActive = show;
     }
 
-    public bool HandleShootInputs(bool inputDown, bool inputHeld, bool inputUp)
+    public bool HandleShootInputs(bool isFiring)
     {
-        m_wantsToShoot = inputDown || inputHeld;
+        if (!isFiring)
+            return false;
 
-        if (m_wantsToShoot)
-        {
-            return TryShoot();
-        }
-        return false;
+        return TryShoot();
     }
 
     bool TryShoot()
     {
         if (
-            weaponData.projectileInventory.Value >= 1 &&
+            projectilesLeft > 0 &&
             m_LastTimeShot + weaponData.delayBetweenShots < Time.time
         )
         {
             HandleShoot();
-            weaponData.projectileInventory.Value -= 1;
-
+            projectilesLeft -= 1;
             return true;
         }
 

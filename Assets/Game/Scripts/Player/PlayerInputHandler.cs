@@ -22,8 +22,8 @@ public class PlayerInputHandler : MonoBehaviour
             return Vector3.zero;
 
         Vector3 move =
-            new Vector3(Input.GetAxisRaw(GameConstants.k_AxisNameHorizontal),
-                Input.GetAxisRaw(GameConstants.k_AxisNameVertical),
+            new Vector3(Input.GetAxisRaw(InputConstants.k_AxisNameHorizontal),
+                Input.GetAxisRaw(InputConstants.k_AxisNameVertical),
                 0f);
 
         move = Vector3.ClampMagnitude(move, 1);
@@ -45,7 +45,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!CanProcessInput)
             return false;
-        return Input.GetButton(GameConstants.k_ButtonNameFire);
+        return Input.GetButton(InputConstants.k_ButtonNameFire);
     }
 
     public int GetSelectWeaponInput()

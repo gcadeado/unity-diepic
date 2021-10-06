@@ -1,4 +1,4 @@
-public class GameConstants
+public class InputConstants
 {
     public const string k_AxisNameVertical = "Vertical";
     public const string k_AxisNameHorizontal = "Horizontal";

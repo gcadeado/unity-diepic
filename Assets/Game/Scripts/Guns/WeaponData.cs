@@ -3,15 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Object/Weapons Data", fileName = "new Weapons Data")]
 public class WeaponData : GameEvent
 {
-    [Header("References")]
-    [SerializeField]
-    public IntVariable projectileInventory = null;
-    public IntVariable projectileInventoryMax = null;
-
     [Header("Information")]
     [Tooltip("The name that will be displayed in the UI for this weapon")]
     public string weaponName;
-
 
     [Header("Shoot Parameters")]
     [Tooltip("The projectile prefab")]

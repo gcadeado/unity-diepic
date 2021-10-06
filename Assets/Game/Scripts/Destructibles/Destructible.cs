@@ -17,7 +17,9 @@ public class Destructible : MonoBehaviour
     void OnDie(GameObject killerSource)
     {
         // this will call the OnDestroy function
-        killerSource.GetComponent<PlayerController>().AddScore(scoreValue);
+        // if (killerSource)
+        //     killerSource.GetComponent<PlayerLocalController>().AddScore(scoreValue);
+
         Destroy(gameObject);
     }
 }

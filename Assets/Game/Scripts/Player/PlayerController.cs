@@ -1,79 +1,61 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInputHandler))]
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(PlayerWeaponsManager))]
+public abstract class PlayerController : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField]
+    protected Transform gunSlot;
+    protected PlayerWeaponsManager m_weaponController;
+    protected Health m_Health;
 
-    [SerializeField]
-    PlayerData playerData;
-    [SerializeField]
-    IntVariable scoreObject = null; // TODO rethink score architecture
-    PlayerInputHandler m_InputHandler;
-    Vector3 m_CharacterVelocity;
-    Health m_Health;
-    [SerializeField]
-    Transform gunSlot;
-
-    void Awake()
+    protected Vector3 m_CharacterVelocity;
+    protected virtual void Awake()
     {
-        m_InputHandler = GetComponent<PlayerInputHandler>();
-        DebugUtility
-            .HandleErrorIfNullGetComponent
-            <PlayerInputHandler, PlayerController>(m_InputHandler,
-            this,
-            gameObject);
-
         m_Health = GetComponent<Health>();
         DebugUtility.HandleErrorIfNullGetComponent<Health, PlayerController>(m_Health, this, gameObject);
+
+        m_weaponController = GetComponent<PlayerWeaponsManager>();
+        DebugUtility.HandleErrorIfNullGetComponent<PlayerWeaponsManager, PlayerController>(m_Health, this, gameObject);
     }
 
-    void Start()
-    {
-        playerData.PlayerState = PlayerStateEnum.ALIVE;
-    }
+    protected virtual void Start() { }
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         m_Health.onDie += OnDie;
     }
 
-    void Update()
-    {
-        HandleCharacterMovement(m_InputHandler.GetMouseLookAngle() - 90f, m_InputHandler.GetMoveInput());
-    }
+    protected abstract void Update();
 
-    void OnDie(GameObject source)
+    protected virtual void OnDie(GameObject source)
     {
-        playerData.lastKilledBy = source.name;
-        playerData.PlayerState = PlayerStateEnum.DEAD;
         Destroy(gameObject);
     }
 
-    public void AddScore(int value)
+    protected virtual void OnFire()
     {
-        if (value > 0)
-            scoreObject.Value += value;
+
     }
 
-    void HandleCharacterMovement(float angle, Vector3 moveInput)
+    protected virtual void Move(float angle, Vector3 moveInput, float playerSpeed, float playerMovementSharpness)
     {
         // Plane XY gun rotation
         gunSlot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         // Character movement handling
-        Vector3 targetVelocity = moveInput * playerData.maxSpeed;
+        Vector3 targetVelocity = moveInput * playerSpeed;
 
         // interpolate between current velocity and the target velocity based on acceleration speed
         m_CharacterVelocity =
             Vector3
                 .Lerp(m_CharacterVelocity,
                 targetVelocity,
-                playerData.movementSharpness * Time.deltaTime);
+                playerMovementSharpness * Time.deltaTime);
         transform.Translate(m_CharacterVelocity * Time.deltaTime, Space.World);
     }
 
-    void OnDisable()
+    protected virtual void OnDisable()
     {
         m_Health.onDie -= OnDie;
     }

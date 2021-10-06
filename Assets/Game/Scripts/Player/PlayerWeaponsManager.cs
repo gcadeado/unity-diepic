@@ -23,7 +23,10 @@ public class PlayerWeaponsManager : MonoBehaviour
     public int activeWeaponIndex { get; private set; }
     public UnityAction<WeaponController> onSwitchedToWeapon;
     WeaponController[] m_WeaponSlots = new WeaponController[6]; // 6 available weapon slots
-    PlayerInputHandler m_InputHandler;
+
+    public bool isFiring;
+    public int switchWeaponInput = 0;
+
     WeaponSwitchState m_WeaponSwitchState;
     int m_WeaponSwitchNewWeaponIndex;
 
@@ -31,9 +34,6 @@ public class PlayerWeaponsManager : MonoBehaviour
     {
         activeWeaponIndex = -1;
         m_WeaponSwitchState = WeaponSwitchState.Down;
-
-        m_InputHandler = GetComponent<PlayerInputHandler>();
-        DebugUtility.HandleErrorIfNullGetComponent<PlayerInputHandler, PlayerWeaponsManager>(m_InputHandler, this, gameObject);
 
         onSwitchedToWeapon += OnWeaponSwitched;
 
@@ -51,23 +51,15 @@ public class PlayerWeaponsManager : MonoBehaviour
         WeaponController activeWeapon = GetActiveWeapon();
         if (activeWeapon && m_WeaponSwitchState == WeaponSwitchState.Up)
         {
-            bool hasFired = activeWeapon.HandleShootInputs(
-                m_InputHandler.GetFireInputDown(),
-                m_InputHandler.GetFireInputHeld(),
-                m_InputHandler.GetFireInputReleased());
+            activeWeapon.HandleShootInputs(isFiring);
         }
 
         // weapon switch handling
-        if (m_WeaponSwitchState == WeaponSwitchState.Up || m_WeaponSwitchState == WeaponSwitchState.Down)
-        {
-            int switchWeaponInput = m_InputHandler.GetSelectWeaponInput();
-            if (switchWeaponInput != 0)
-            {
-                if (GetWeaponAtSlotIndex(switchWeaponInput - 1) != null)
-                    SwitchToWeaponIndex(switchWeaponInput - 1);
-            }
-
-        }
+        if (switchWeaponInput != 0
+            && GetWeaponAtSlotIndex(switchWeaponInput - 1) != null
+            && m_WeaponSwitchState == WeaponSwitchState.Up
+            || m_WeaponSwitchState == WeaponSwitchState.Down)
+            SwitchToWeaponIndex(switchWeaponInput - 1);
     }
 
     private void LateUpdate()

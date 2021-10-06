@@ -13,6 +13,7 @@ public class PlayerData : GameEvent, ISerializationCallbackReceiver
     [Header("State")]
     public PlayerStateEnum InitialPlayerState = PlayerStateEnum.ALIVE;
 
+    [ReadOnly]
     public PlayerStateEnum RuntimePlayerState;
 
     public PlayerStateEnum PlayerState
@@ -40,8 +41,6 @@ public class PlayerData : GameEvent, ISerializationCallbackReceiver
     [Header("Info")]
     public string playerName = "Player";
     public string lastKilledBy;
-
-    Vector3 m_CharacterVelocity;
 
     public void OnBeforeSerialize()
     {
