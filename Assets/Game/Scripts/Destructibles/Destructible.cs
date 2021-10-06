@@ -20,6 +20,6 @@ public class Destructible : MonoBehaviour
         // if (killerSource)
         //     killerSource.GetComponent<PlayerLocalController>().AddScore(scoreValue);
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

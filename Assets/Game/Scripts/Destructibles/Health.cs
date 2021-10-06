@@ -10,9 +10,15 @@ public class Health : MonoBehaviour
     public UnityAction<float> onHealed;
     public UnityAction<GameObject> onDie;
 
-    public float currentHealth { get; set; }
+    public float currentHealth
+    {
+        get; set;
+    }
 
-    public bool invincible { get; set; }
+    public bool invincible
+    {
+        get; set;
+    }
 
     bool m_IsDead;
 
