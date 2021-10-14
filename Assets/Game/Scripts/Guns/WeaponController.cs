@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,6 +18,7 @@ public class WeaponController : MonoBehaviour
 
     public int projectilesLeft;
     public int projectileMax = 12;
+    public bool infiniteProjectiles = false;
 
     float m_LastTimeShot = Mathf.NegativeInfinity;
 
@@ -42,6 +44,9 @@ public class WeaponController : MonoBehaviour
 
     void Awake()
     {
+        if (infiniteProjectiles)
+            projectileMax = Int32.MaxValue;
+
         projectilesLeft = projectileMax;
     }
 
@@ -60,7 +65,10 @@ public class WeaponController : MonoBehaviour
 
     public void UseAmmo(int amount)
     {
-        UpdateAmmo(-amount);
+        if (!infiniteProjectiles)
+        {
+            UpdateAmmo(-amount);
+        }
         m_LastTimeShot = Time.time;
     }
 
@@ -92,7 +100,7 @@ public class WeaponController : MonoBehaviour
         )
         {
             HandleShoot();
-            projectilesLeft -= 1;
+            UseAmmo(1);
             return true;
         }
 

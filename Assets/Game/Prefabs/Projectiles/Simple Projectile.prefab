@@ -114,7 +114,7 @@ MonoBehaviour:
   hittableLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  speed: 3
+  speed: 5
   inheritWeaponVelocity: 0
   damage: 15
   radiusColor: {r: 0.2, g: 0, b: 0, a: 0.2}

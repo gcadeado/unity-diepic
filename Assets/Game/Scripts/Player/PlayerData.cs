@@ -32,12 +32,6 @@ public class PlayerData : GameEvent, ISerializationCallbackReceiver
         }
     }
 
-    [Header("Movement")]
-    [Tooltip("Max movement speed")]
-    public float maxSpeed = 5f;
-    [Tooltip("Movement sharpness")]
-    public float movementSharpness = 15f;
-
     [Header("Info")]
     public string playerName = "Player";
     public string lastKilledBy;

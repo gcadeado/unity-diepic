@@ -4,6 +4,9 @@ using UnityEngine.Tilemaps;
 public class MapManager : MonoBehaviour
 {
     public int crateMaxInstances = 50;
+
+    [SerializeField]
+    private GameObject botPrefab;
     [SerializeField]
     GameObject cratePrefab;
 
@@ -26,6 +29,10 @@ public class MapManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            AddBot();
+        }
         spawnTimer -= Time.deltaTime;
         if (spawnTimer < 0)
         {
@@ -55,6 +62,12 @@ public class MapManager : MonoBehaviour
             }
 
         }
+    }
+
+    void AddBot()
+    {
+        Vector3 spawnPosition = GetRandomTilemapPosition();
+        GameObject bot = Instantiate(botPrefab, spawnPosition, Quaternion.identity);
     }
 
     Vector3 GetRandomTilemapPosition()

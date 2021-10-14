@@ -31,8 +31,7 @@ public class PlayerLocalController : PlayerController
     protected override void Update()
     {
         base.Move(m_InputHandler.GetMouseLookAngle() - 90f,
-            m_InputHandler.GetMoveInput(),
-            playerData.maxSpeed, playerData.movementSharpness);
+            m_InputHandler.GetMoveInput(), maxSpeed, movementSharpness);
 
         m_weaponController.isFiring = m_InputHandler.GetFireInputDown() || m_InputHandler.GetFireInputHeld();
 

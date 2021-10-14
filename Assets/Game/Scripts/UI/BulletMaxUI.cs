@@ -1,6 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
-
 // TODO refactor this mess to use GameEvents
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class BulletMaxUI : MonoBehaviour
@@ -13,8 +13,12 @@ public class BulletMaxUI : MonoBehaviour
     void Update()
     {
         m_PlayerWeaponsManager = FindObjectOfType<PlayerLocalController>().GetComponent<PlayerWeaponsManager>();
-        int currentProjectilesLeft = m_PlayerWeaponsManager.GetMaxAmmo(m_Weapon);
+        int currentProjectilesMax = m_PlayerWeaponsManager.GetMaxAmmo(m_Weapon);
         TextMeshProUGUI textMeshPro = GetComponent<TextMeshProUGUI>();
-        textMeshPro.text = currentProjectilesLeft.ToString();
+
+        if (currentProjectilesMax == Int32.MaxValue)
+            textMeshPro.text = "∞";
+        else
+            textMeshPro.text = currentProjectilesMax.ToString();
     }
 }
